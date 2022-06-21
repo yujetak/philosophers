@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/21 19:53:22 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/21 20:39:10 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
 
 enum e_philo_status
 {
+    THINK,
+    TAKE_FORK,
     EAT,
-    SLEEP,
-    THINK
+    SLEEP
 };
 
 enum e_fork_status
@@ -62,6 +63,7 @@ struct s_philo
     int             right_fork;
     int             status;
     int             eat_cnt;
+    long            start_eat;
     long            last_eat;
     int             *info_is_death;
     t_info          *info;

@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:24:44 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/21 19:54:46 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/21 20:39:31 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void    set_philo(t_info *info)
         info->philo[idx].idx = idx;
         info->philo[idx].status = THINK;
         info->philo[idx].eat_cnt = 0;
+        info->philo[idx].start_eat = 0;
         info->philo[idx].last_eat = 0;
         info->philo[idx].info_is_death = &info->is_death;
         info->philo[idx].info = info;

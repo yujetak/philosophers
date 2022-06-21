@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:12:23 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/21 20:19:25 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/21 20:35:55 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static void    *philo_routine(t_philo *ph)
     while (&ph->info_is_death == TRUE)
     {
         pthread_mutex_lock(&ph->info->m_forks[ph->right_fork]);
-        pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
-        //포크 잡고
         philo_get_fork(ph);
-        //먹고
-        //자고
+        pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
+        //포크 잡고 먹고
+        philo_eat(ph);
+        //자고 -> 잘때 먹기 시작한 시간 = 0
         usleep(100);
         pthread_mutex_unlock(&ph->info->m_forks[ph->right_fork]);
         pthread_mutex_unlock(&ph->info->m_forks[ph->left_fork]);
