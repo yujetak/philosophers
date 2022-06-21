@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 09:11:04 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/20 15:29:27 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/21 10:45:13 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int check_arg(int argc, char *argv[])
         {
             if (ft_ato_pi(argv[idx]) == -1)
             {
-                print_error("❌ Please input POSITIVE INTETGERs");
+                print_error("\033[0;91m ❌ Please input POSITIVE INTETGERs\033[0m\n");
                 return (1);
             }
             idx += 1;
@@ -31,7 +31,7 @@ int check_arg(int argc, char *argv[])
     }
     else
     {
-        print_error("❌ ./philo [philosophers] [die] [eat] [sleep] [opt]");
+        print_error("\033[0;91m ❌ ./philo [philosophers] [die] [eat] [sleep] [opt]\033[0m\n");
         return (1);
     }
     return (0);

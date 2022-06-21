@@ -6,7 +6,7 @@
 #    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/20 16:04:31 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/21 10:58:10 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g
 RM		=	rm -rf
 
 SRCS	=	philo.c \
+			philo_utils.c \
 			check_arg.c \
 			check_arg_utils.c \
 			struct_info.c \

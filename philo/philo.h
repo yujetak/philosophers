@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/20 16:17:11 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/21 19:53:22 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,17 @@
 #define FALSE 0
 #define TRUE 1
 
-enum e_status
+enum e_philo_status
 {
     EAT,
     SLEEP,
     THINK
+};
+
+enum e_fork_status
+{
+    ON_TABLE,
+    IN_HAND
 };
 
 typedef struct s_info   t_info;
@@ -39,18 +45,26 @@ struct s_info
     int             time_eat;
     int             time_sleep;
     int             nbr_eat_must;
-    struct s_philo  *philo;    
-    pthread_mutex_t *forks;
+    int             is_death; //death flag
+    long            timestamp;
+    int             *forks;
+    pthread_mutex_t *m_forks;
+    struct s_philo  *philo;
+    pthread_mutex_t m_print;
+    pthread_mutex_t m_sleep;
     pthread_t       *thread;
-};
+}; 
 
 struct s_philo
 {
     int             idx;
+    int             left_fork;
+    int             right_fork;
     int             status;
     int             eat_cnt;
-    pthread_mutex_t *left_fork;
-    pthread_mutex_t *right_fork;
+    long            last_eat;
+    int             *info_is_death;
+    t_info          *info;
 };
 
 /* philo.c */
@@ -66,10 +80,11 @@ t_info  *init_info(t_info *info);
 void    set_info(int argc, char *argv[], t_info *info);
 void    print_info(t_info *info);
 /* struct_philosopher.c */
-void    set_forks(t_info *info);
+void    set_forks_mutex(t_info *info);
+void    set_forks_array(t_info *info);
 void    set_philo(t_info *info);
 void    set_thread(t_info *info);
 /* run_philo.c */
-void    run_philo(t_info *info);
+int     run_philo(t_info *info);
 /* free.c */
 void    free_info(t_info *info);
