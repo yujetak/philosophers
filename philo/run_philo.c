@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:12:23 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/21 20:35:55 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/22 10:42:46 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,22 @@ static void    *philo_routine(t_philo *ph)
 {
     if ((ph->idx % 2) == 0)
         usleep(100);
-    while (&ph->info_is_death == TRUE)
+    while (&ph->info->is_death == FALSE)
     {
+        if (is_philo_death(ph) == TRUE)
+            break;
         pthread_mutex_lock(&ph->info->m_forks[ph->right_fork]);
-        philo_get_fork(ph);
+        philo_get_right_fork(ph);
         pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
         //포크 잡고 먹고
+        philo_get_left_fork(ph);
         philo_eat(ph);
-        //자고 -> 잘때 먹기 시작한 시간 = 0
+        philo_sleep(ph);
         usleep(100);
         pthread_mutex_unlock(&ph->info->m_forks[ph->right_fork]);
         pthread_mutex_unlock(&ph->info->m_forks[ph->left_fork]);
+        if (is_philo_death(ph) == TRUE)
+            break;
     }
     return ((void *) 0);
 }
@@ -57,6 +62,8 @@ int run_philo(t_info *info)
             print_error("\033[0;91m ❌ Failed to join thread\033[0m\n");
             return (1);
         }
+        if (info->is_death == TRUE)
+            return (1);
         idx += 1;
     }
     return (0);

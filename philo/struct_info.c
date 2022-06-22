@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:30:16 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/21 19:50:06 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/22 10:44:25 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void    set_info(int argc, char *argv[], t_info *info)
     set_philo(info);
     set_forks_array(info);
     pthread_mutex_init(&info->m_print, NULL);
-    pthread_mutex_init(&info->m_sleep, NULL);
+    pthread_mutex_init(&info->m_time, NULL);
+    pthread_mutex_init(&info->m_death, NULL);
     set_thread(info);
 }
 

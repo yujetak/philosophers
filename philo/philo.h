@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/21 20:39:10 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/22 10:50:39 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef struct s_philo  t_philo;
 struct s_info
 {
     int             nbr_philos;
-    int             time_die;
-    int             time_eat;
-    int             time_sleep;
+    long            time_die;
+    long            time_eat;
+    long            time_sleep;
     int             nbr_eat_must;
     int             is_death; //death flag
     long            timestamp;
@@ -52,7 +52,8 @@ struct s_info
     pthread_mutex_t *m_forks;
     struct s_philo  *philo;
     pthread_mutex_t m_print;
-    pthread_mutex_t m_sleep;
+    pthread_mutex_t m_time;
+    pthread_mutex_t m_death;
     pthread_t       *thread;
 }; 
 
@@ -63,9 +64,8 @@ struct s_philo
     int             right_fork;
     int             status;
     int             eat_cnt;
-    long            start_eat;
+    long            status_start;
     long            last_eat;
-    int             *info_is_death;
     t_info          *info;
 };
 
