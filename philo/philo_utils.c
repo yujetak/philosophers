@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 10:55:22 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/22 10:51:57 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/23 08:06:13 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 long    get_time(void)
 {
     struct timeval  current_time;
-    
+
     gettimeofday(&current_time, NULL);
     return (current_time.tv_sec * 1000 + current_time.tv_usec / 100);
 }
@@ -66,10 +66,10 @@ void    ft_usleep(int status_end_time)
 
 void    philo_eat(t_philo *philo)
 {
-    int die->time;
+    int die_time;
 
     pthread_mutex_lock(&philo->info->m_time);
-    die->time = philo->info->time_eat;
+    die_time = philo->info->time_eat;
     pthread_mutex_unlock(&philo->info->m_time);
     philo->status_start = get_time();
     philo->status = EAT;
@@ -81,7 +81,7 @@ void    philo_eat(t_philo *philo)
     // 목표시각 = 상태 소요 시간 + 현재시각
     // while(목표시간 > 현재시각)
     // usleep(100)
-    ft_usleep(die->time);
+    ft_usleep(die_time);
     philo->last_eat = get_time();
     philo->status_start = 0;
     philo->info->forks[philo->left_fork] = ON_TABLE;
@@ -101,7 +101,7 @@ void    philo_sleep(t_philo *philo)
     ft_usleep(sleep_time);
 }
 
-void    is_philo_death(t_philo *philo)
+int is_philo_death(t_philo *philo)
 {
     int is_death;
     int die_time;

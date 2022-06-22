@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   run_philo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:12:23 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/22 10:42:46 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/23 08:10:58 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void    *philo_routine(t_philo *ph)
+void    *philo_routine(void *philo)
 {
+    t_philo *ph;
+
+    ph = (t_philo *)philo;
     if ((ph->idx % 2) == 0)
         usleep(100);
-    while (&ph->info->is_death == FALSE)
+    while (ph->info->is_death == FALSE)
     {
         if (is_philo_death(ph) == TRUE)
             break;

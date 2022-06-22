@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_info.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:30:16 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/22 10:44:25 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/23 08:08:59 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void    print_info(t_info *info)
 {
     printf("======================[info]======================\n");
     printf("\033[0;92m🦄 1. number of philos : %d \033[0m\n", info->nbr_philos);
-    printf("\033[0;92m🦄 2. time to die : %d \033[0m\n", info->time_die);
-    printf("\033[0;92m🦄 3. time to eat : %d \033[0m\n", info->time_eat);
-    printf("\033[0;92m🦄 4. time to sleep : %d \033[0m\n", info->time_sleep);
+    printf("\033[0;92m🦄 2. time to die : %ld \033[0m\n", info->time_die);
+    printf("\033[0;92m🦄 3. time to eat : %ld \033[0m\n", info->time_eat);
+    printf("\033[0;92m🦄 4. time to sleep : %ld \033[0m\n", info->time_sleep);
     printf("\033[0;92m🦄 opt. number of must eat : %d \033[0m\n", info->nbr_eat_must);
 }

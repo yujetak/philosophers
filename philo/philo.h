@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/22 10:50:39 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/23 08:08:03 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> //printf 
+#include <stdio.h> //printf
 #include <stdlib.h> //malloc free exit
 #include <unistd.h> //fork usleep -> 어느정도 적당히(적게는 안됨) while문 내에서라면? 100이상은 줘야!
 #include <signal.h> //kill
@@ -55,7 +55,7 @@ struct s_info
     pthread_mutex_t m_time;
     pthread_mutex_t m_death;
     pthread_t       *thread;
-}; 
+};
 
 struct s_philo
 {
@@ -71,6 +71,15 @@ struct s_philo
 
 /* philo.c */
 void    print_error(const char *msg);
+/* philo_utils.c */
+long    get_time(void);
+void    philo_status_print(t_philo *philo);
+void    philo_get_left_fork(t_philo *philo);
+void    philo_get_right_fork(t_philo *philo);
+void    ft_usleep(int status_end_time);
+void    philo_eat(t_philo *philo);
+void    philo_sleep(t_philo *philo);
+int     is_philo_death(t_philo *philo);
 /* check_arg.c */
 int     check_arg(int argc, char *argv[]);
 /* check_arg_utils.c */
