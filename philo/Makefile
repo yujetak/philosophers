@@ -6,14 +6,15 @@
 #    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/23 12:28:45 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/23 18:23:34 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS	=	-Wall -Wextra -Werror
 
+DEBUG	=	-fsanitize=thread -g
 RM		=	rm -rf
 
 SRCS	=	philo.c \

@@ -6,19 +6,19 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/23 12:08:51 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/23 16:23:16 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h> //printf
-#include <stdlib.h> //malloc free exit
+#include <stdlib.h> //malloc free
 #include <unistd.h> //fork usleep -> 어느정도 적당히(적게는 안됨) while문 내에서라면? 100이상은 줘야!
-#include <string.h>
-#include <signal.h> //kill
+#include <string.h> //memset
+// #include <signal.h> //(bonus)kill
 #include <pthread.h> //pthread_*
 // if error occured, return not zero
 #include <sys/time.h> //gettimeofday -> google!
-#include <semaphore.h> //sem_*
+// #include <semaphore.h> //(bonus_sem_*
 
 enum e_bool
 {
@@ -29,8 +29,7 @@ enum e_bool
 enum e_philo_status
 {
     THINK,
-    TAKE_FORK_L,
-    TAKE_FORK_R,
+    TAKE_FORK,
     EAT,
     SLEEP
 };
@@ -47,9 +46,9 @@ typedef struct s_philo  t_philo;
 struct s_info
 {
     int             nbr_philos;
-    long            time_die;
-    long            time_eat;
-    long            time_sleep;
+    int            time_die;
+    int            time_eat;
+    int            time_sleep;
     unsigned int    nbr_eat_must;
     int             is_death;
     long            main_start_time;
@@ -57,6 +56,7 @@ struct s_info
     pthread_mutex_t *m_forks;
     struct s_philo  *philo;
     pthread_mutex_t m_print;
+    pthread_mutex_t m_sleep;
     pthread_mutex_t m_time;
     pthread_mutex_t m_death;
     pthread_t       *thread;
@@ -79,11 +79,11 @@ void    print_error(const char *msg);
 /* philo_utils.c */
 long    get_time(void);
 void    philo_status_print(t_philo *philo);
-void    philo_get_left_fork(t_philo *philo);
-void    philo_get_right_fork(t_philo *philo);
+void    philo_get_fork(t_philo *philo);
 void    ft_usleep(int status_end_time);
 void    philo_eat(t_philo *philo);
 void    philo_sleep(t_philo *philo);
+void    philo_think(t_philo *philo);
 int     is_philo_death(t_philo *philo);
 /* check_arg.c */
 int     check_arg(int argc, char *argv[]);

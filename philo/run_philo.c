@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:12:23 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/23 12:31:52 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/23 16:08:21 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void    *philo_routine(void *philo)
     {
         pthread_mutex_lock(&ph->info->m_forks[ph->right_fork]);
         pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
-        philo_get_right_fork(ph);
-        philo_get_left_fork(ph);
+        philo_get_fork(ph);
         philo_eat(ph);
         pthread_mutex_unlock(&ph->info->m_forks[ph->right_fork]);
         pthread_mutex_unlock(&ph->info->m_forks[ph->left_fork]);
         philo_sleep(ph);
+        philo_think(ph);
         usleep(100);
     }
     return ((void *) 0);
