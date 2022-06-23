@@ -6,13 +6,13 @@
 #    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/21 10:58:10 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/23 12:28:45 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=thread -g
 
 RM		=	rm -rf
 
@@ -31,27 +31,27 @@ OBJS	=	$(SRCS:%.c=$(DIR_OBJ)/%.o)
 all		:	make_objd $(NAME)
 
 make_objd :
-			mkdir -p $(DIR_OBJ)
+			@mkdir -p $(DIR_OBJ)
 
 $(DIR_OBJ)/%.o : %.c
-			$(CC) $(CFLAGS) -c $< -o $@
+			@$(CC) $(CFLAGS) -c $< -o $@
 
 # cc -Wall -Wextra -Werror -o 실행파일명 목적파일들
 $(NAME)	:	$(OBJS)
-			$(CC) $(CFLAGS) -o $@ $^
+			@$(CC) $(CFLAGS) -o $@ $^
 			@echo "\033[0;92m📌 executable $(NAME) created\033[0m"
 
 clean	:
-			$(RM) $(DIR_OBJ)
+			@$(RM) $(DIR_OBJ)
 
 fclean	:	
-			$(MAKE) clean
-			$(RM) $(NAME)
+			@$(MAKE) clean
+			@$(RM) $(NAME)
 			@echo "\033[0;91m📌 deleted $(NAME)\033[0m"
 
 re		:
-			$(MAKE) fclean
-			$(MAKE) all
+			@$(MAKE) fclean
+			@$(MAKE) all
 
 .PHONY	: all clean fclean re
 
