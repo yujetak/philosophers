@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/23 16:23:16 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/24 15:30:12 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ struct s_info
     struct s_philo  *philo;
     pthread_mutex_t m_print;
     pthread_mutex_t m_sleep;
+    pthread_mutex_t m_start_line;
     pthread_mutex_t m_time;
     pthread_mutex_t m_death;
     pthread_t       *thread;
@@ -78,6 +79,7 @@ struct s_philo
 void    print_error(const char *msg);
 /* philo_utils.c */
 long    get_time(void);
+long    get_timestamp(long main_start_time);
 void    philo_status_print(t_philo *philo);
 void    philo_get_fork(t_philo *philo);
 void    ft_usleep(int status_end_time);

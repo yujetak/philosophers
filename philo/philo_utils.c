@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 10:55:22 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/23 18:14:58 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/24 17:10:31 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,19 @@ long    get_timestamp(long main_start_time)
 
 void    philo_status_print(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->info->m_print);
-    if (philo->status == TAKE_FORK)
-        printf("%ld %d has taken a fork\n", philo->status_start, philo->idx);
-    else if (philo->status == EAT)
-        printf("%ld %d is eating\n", philo->status_start, philo->idx);
-    else if (philo->status == SLEEP)
-        printf("%ld %d is sleeping\n", philo->status_start, philo->idx);
-    else if (philo->status == THINK)
-        printf("%ld %d is thinking\n", philo->status_start, philo->idx);
-    pthread_mutex_unlock(&philo->info->m_print);
+    if (philo->info->is_death == FALSE)
+    {
+        pthread_mutex_lock(&philo->info->m_print);
+        if (philo->status == TAKE_FORK)
+            printf("%ld %d has taken a fork\n", philo->status_start, philo->idx + 1);
+        else if (philo->status == EAT)
+            printf("%ld %d is eating\n", philo->status_start, philo->idx + 1);
+        else if (philo->status == SLEEP)
+            printf("%ld %d is sleeping\n", philo->status_start, philo->idx + 1);
+        else if (philo->status == THINK)
+            printf("%ld %d is thinking\n", philo->status_start, philo->idx + 1);
+        pthread_mutex_unlock(&philo->info->m_print);
+    }
 }
 
 void    philo_get_fork(t_philo *philo)
@@ -67,9 +70,9 @@ void    philo_eat(t_philo *philo)
     eat_time = philo->info->time_eat;
     philo->eat_cnt += 1;
     philo->status_start = get_timestamp(philo->info->main_start_time);
+    philo->last_eat = philo->status_start;
     philo_status_print(philo);
     ft_usleep(eat_time);
-    philo->last_eat = get_timestamp(philo->info->main_start_time);
     philo->status_start = 0;
     philo->info->forks[philo->left_fork] = ON_TABLE;
     philo->info->forks[philo->right_fork] = ON_TABLE;
@@ -96,19 +99,21 @@ void    philo_think(t_philo *philo)
 
 int is_philo_death(t_philo *philo)
 {
-    int    die_time;
-    int     is_death;
+    // int    die_time;
+    // int     is_death;
 
-    pthread_mutex_lock(&philo->info->m_death);
-    is_death = philo->info->is_death;
-    pthread_mutex_unlock(&philo->info->m_death);
-    die_time = philo->info->time_die;
-    if (is_death == TRUE || die_time > ((get_time() - philo->last_eat)))
+    // pthread_mutex_lock(&philo->info->m_death);
+    // is_death = philo->info->is_death;
+    // pthread_mutex_unlock(&philo->info->m_death);
+    // pthread_mutex_lock(&philo->info->m_time);
+    // die_time = philo->info->time_die;
+    // pthread_mutex_unlock(&philo->info->m_time);
+    if (philo->info->time_die < ((get_timestamp(philo->info->main_start_time) - philo->last_eat)))
     {
         pthread_mutex_lock(&philo->info->m_death);
         philo->info->is_death = TRUE;
         pthread_mutex_unlock(&philo->info->m_death);
-        printf("%ld %d is died\n", get_timestamp(philo->info->main_start_time), philo->idx);
+        printf("%ld %d died\n", get_timestamp(philo->info->main_start_time), philo->idx + 1);
         return (TRUE);
     }
     return (FALSE);
