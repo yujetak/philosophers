@@ -6,7 +6,7 @@
 #    By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/26 21:32:10 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/26 21:41:23 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ endif
 RM		=	rm -rf
 
 WHITE	=	\033[0m
+BLUE	=	\033[0;34m
 RED		=	\033[0;91m
 GREEN	=	\033[0;92m
 
@@ -46,7 +47,8 @@ $(DIR_OBJ)/%.o : %.c
 # cc -Wall -Wextra -Werror -o 실행파일명 목적파일들
 $(NAME)	:	$(OBJS)
 			@$(CC) $(CFLAGS) -o $@ $^
-			@echo "$(GREEN)📌 executable $(NAME) created$(WHITE)"
+			@echo "$(BLUE)🪄 CFLAGS = $(CFLAGS)$(WHITE)"
+			@echo "$(GREEN)💡 executable $(NAME) created$(WHITE)"
 
 clean	:
 			@$(RM) $(DIR_OBJ)
@@ -54,7 +56,7 @@ clean	:
 fclean	:
 			@$(MAKE) clean
 			@$(RM) $(NAME)
-			@echo "$(RED)📌 deleted $(NAME)$(WHITE)"
+			@echo "$(RED)🪚 deleted $(NAME)$(WHITE)"
 
 re		:
 			@$(MAKE) fclean
