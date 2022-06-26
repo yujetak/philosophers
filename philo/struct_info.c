@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   struct_info.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 10:30:16 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/24 15:37:01 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/26 20:51:51 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    init_info(t_info *info)
+int	 init_info(t_info *info)
 {
     memset((void *)info, 0, sizeof(t_info));
+	if (!info)
+		return (1);
     info->nbr_eat_must = -1;
+	return (0);
 }
 
-void    set_info(int argc, char *argv[], t_info *info)
+int	set_info(int argc, char *argv[], t_info *info)
 {
-    init_info(info);
+    if (init_info(info))
+		return (1);
     info->nbr_philos = ft_ato_pi(argv[1]);
     info->time_die = ft_ato_pi(argv[2]);
     info->time_eat = ft_ato_pi(argv[3]);
@@ -28,15 +32,23 @@ void    set_info(int argc, char *argv[], t_info *info)
     if (argc == 6)
         info->nbr_eat_must = ft_ato_pi(argv[5]);
     info->main_start_time = get_time();
-    set_forks_mutex(info);
-    set_philo(info);
-    set_forks_array(info);
-    pthread_mutex_init(&info->m_print, NULL);
-    pthread_mutex_init(&info->m_time, NULL);
-    pthread_mutex_init(&info->m_sleep, NULL);
-    pthread_mutex_init(&info->m_death, NULL);
-    pthread_mutex_init(&info->m_start_line, NULL);
-    set_thread(info);
+    if (set_forks_mutex(info))
+		return (1);
+    if (set_philo(info))
+		return (1);
+    if (set_forks_array(info))
+		return (1);
+    if (pthread_mutex_init(&info->m_print, NULL))
+		return (1);
+    if (pthread_mutex_init(&info->m_time, NULL))
+		return (1);
+	if (pthread_mutex_init(&info->m_death, NULL))
+		return (1);
+    if (pthread_mutex_init(&info->m_start_line, NULL))
+		return (1);
+    if (set_thread(info))
+		return (1);
+	return (0);
 }
 
 // void    print_info(t_info *info)

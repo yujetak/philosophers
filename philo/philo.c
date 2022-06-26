@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 13:08:58 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/24 14:39:24 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/26 19:44:36 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int main(int argc, char *argv[])
     info = (t_info *)malloc(sizeof(t_info));
     if (check_arg(argc, argv))
         return (1);
-    set_info(argc, argv, info);
+    if (set_info(argc, argv, info))
+		return (1);
     run_philo(info);
     return (0);
 }

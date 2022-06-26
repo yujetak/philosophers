@@ -6,16 +6,22 @@
 #    By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/26 15:50:51 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/26 21:32:10 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -fsanitize=thread -g3
+CFLAGS	=	-Wall -Wextra -Werror
 
-DEBUG	=	-fsanitize=thread -g
+ifeq ($(DEBUG), 1)
+CFLAGS	+=	-fsanitize=thread -g3
+endif
 RM		=	rm -rf
+
+WHITE	=	\033[0m
+RED		=	\033[0;91m
+GREEN	=	\033[0;92m
 
 SRCS	=	philo.c \
 			philo_utils.c \
@@ -40,7 +46,7 @@ $(DIR_OBJ)/%.o : %.c
 # cc -Wall -Wextra -Werror -o 실행파일명 목적파일들
 $(NAME)	:	$(OBJS)
 			@$(CC) $(CFLAGS) -o $@ $^
-			@echo "\033[0;92m📌 executable $(NAME) created\033[0m"
+			@echo "$(GREEN)📌 executable $(NAME) created$(WHITE)"
 
 clean	:
 			@$(RM) $(DIR_OBJ)
@@ -48,7 +54,7 @@ clean	:
 fclean	:
 			@$(MAKE) clean
 			@$(RM) $(NAME)
-			@echo "\033[0;91m📌 deleted $(NAME)\033[0m"
+			@echo "$(RED)📌 deleted $(NAME)$(WHITE)"
 
 re		:
 			@$(MAKE) fclean

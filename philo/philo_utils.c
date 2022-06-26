@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:32:48 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/26 15:51:46 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/26 21:26:15 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ long	get_time(void)
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }
 
-long	get_timestamp(long main_start_time)
+long	get_timestamp(t_info *info)
 {
-	long	current_time;
+	long	start_time;
 
-	current_time = get_time();
-	return (current_time - main_start_time);
+	// pthread_mutex_lock(&info->m_time);
+	start_time = info->main_start_time;
+	// pthread_mutex_unlock(&info->m_time);
+	return (get_time() - start_time);
 }
 
 void	philo_status_print(t_philo *philo)
@@ -66,13 +68,22 @@ void	philo_eat(t_philo *philo)
 {
 	long eat_time;
 
-	philo->status = EAT;
-	eat_time = philo->info->time_eat;
+	// printf("philo[%d] 1\n", philo->idx);
+	pthread_mutex_lock(&philo->m_eat);
 	philo->eat_cnt += 1;
-	philo->status_start = get_timestamp(philo->info->main_start_time);
-	philo->last_eat = philo->status_start;
+	// printf("philo[%d] 1.5\n", philo->idx);
+	philo->status_start = get_timestamp(philo->info);
+	// printf("philo[%d] 2\n", philo->idx);
+	philo->status = EAT;
+	// pthread_mutex_lock(&philo->info->m_time);
+	eat_time = philo->info->time_eat;
+	// pthread_mutex_unlock(&philo->info->m_time);
+	// printf("philo[%d] 3\n", philo->idx);
 	philo_status_print(philo);
+	// printf("philo[%d] 4\n", philo->idx);
+	pthread_mutex_unlock(&philo->m_eat);
 	ft_usleep(eat_time);
+	// printf("philo[%d] 5\n", philo->idx);
 	philo->status_start = 0;
 	philo->info->forks[philo->left_fork] = ON_TABLE;
 	philo->info->forks[philo->right_fork] = ON_TABLE;
@@ -84,7 +95,7 @@ void	philo_sleep(t_philo *philo)
 
 	philo->status = SLEEP;
 	sleep_time = philo->info->time_sleep;
-	philo->status_start = get_timestamp(philo->info->main_start_time);
+	philo->status_start = get_timestamp(philo->info);
 	philo_status_print(philo);
 	philo->status_start = 0;
 	ft_usleep(sleep_time);
@@ -93,7 +104,7 @@ void	philo_sleep(t_philo *philo)
 void	philo_think(t_philo *philo)
 {
 	philo->status = THINK;
-	philo->status_start = get_timestamp(philo->info->main_start_time);
+	philo->status_start = get_timestamp(philo->info);
 	philo_status_print(philo);
 }
 
@@ -108,12 +119,12 @@ int is_philo_death(t_philo *philo)
 	// pthread_mutex_lock(&philo->info->m_time);
 	// die_time = philo->info->time_die;
 	// pthread_mutex_unlock(&philo->info->m_time);
-	if (philo->info->time_die < ((get_timestamp(philo->info->main_start_time) - philo->last_eat)))
+	if (philo->info->time_die < ((get_timestamp(philo->info) - philo->last_eat)))
 	{
 		pthread_mutex_lock(&philo->info->m_death);
 		philo->info->is_death = TRUE;
 		pthread_mutex_unlock(&philo->info->m_death);
-		printf("%ld %d died\n", get_timestamp(philo->info->main_start_time), philo->idx + 1);
+		printf("%ld %d died\n", get_timestamp(philo->info), philo->idx + 1);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -126,7 +137,7 @@ int is_all_eat(t_info *info)
 	idx = 0;
 	while(idx < info->nbr_philos)
 	{
-		if (info->philo[idx].eat_cnt < (int)info->nbr_eat_must)
+		if ((unsigned int)info->philo[idx]->eat_cnt < info->nbr_eat_must)
 			return (FALSE);
 		idx += 1;
 	}
