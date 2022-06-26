@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_philo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:12:23 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/24 16:33:42 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/26 15:33:15 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@ void    *philo_routine(void *philo)
     ph = (t_philo *)philo;
     pthread_mutex_lock(&ph->info->m_start_line);
     pthread_mutex_unlock(&ph->info->m_start_line);
-    if ((ph->idx % 2) != 0)
+	if (ph->info->nbr_philos == 1)
+	{
+		usleep(100);
+		return ((void *) 0);
+	}
+    if ((ph->idx % 2) == 0)
         usleep(100);
     while (ph->info->is_death == FALSE)
     {
@@ -56,10 +61,13 @@ int run_philo(t_info *info)
     // 무한반복문 -> if 조건 체크로 break! 프로그램 끝날 때까지 계속 체크해야
     while (idx < info->nbr_philos || (unsigned int)info->philo[idx].eat_cnt < info->nbr_eat_must)
     {
-        if (is_philo_death(&info->philo[idx]))
-            return (1);
-        idx += 1;
-        idx = idx % info->nbr_philos;
+        if (is_philo_death(&info->philo[idx]) || is_all_eat(info))
+            break ;
+		if (info->nbr_philos > 1)
+		{
+			idx += 1;
+			idx = idx % info->nbr_philos;
+		}
     }
     idx = 0;
     while (idx < info->nbr_philos)

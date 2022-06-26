@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_philosopher.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 13:24:44 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/24 16:33:33 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/26 15:16:55 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void    set_philo(t_info *info)
         info->philo[idx].status = THINK;
         info->philo[idx].eat_cnt = 0;
         info->philo[idx].status_start = 0;
-        info->philo[idx].last_eat = info->main_start_time;
+        info->philo[idx].last_eat = get_timestamp(info->main_start_time);
         info->philo[idx].info = info;
         if (idx == info->nbr_philos - 1)
             info->philo[idx].left_fork = 0;
