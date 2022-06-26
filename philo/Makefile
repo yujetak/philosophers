@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
+#    By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/24 16:33:28 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/26 15:50:51 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	philo
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=thread -g3
 
 DEBUG	=	-fsanitize=thread -g
 RM		=	rm -rf
@@ -45,7 +45,7 @@ $(NAME)	:	$(OBJS)
 clean	:
 			@$(RM) $(DIR_OBJ)
 
-fclean	:	
+fclean	:
 			@$(MAKE) clean
 			@$(RM) $(NAME)
 			@echo "\033[0;91m📌 deleted $(NAME)\033[0m"

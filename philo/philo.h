@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 08:21:15 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/24 15:30:12 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/26 15:52:27 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void    set_philo(t_info *info);
 void    set_thread(t_info *info);
 /* run_philo.c */
 int     run_philo(t_info *info);
+int		is_all_eat(t_info *info);
 /* free.c */
 void    free_info(t_info *info);
