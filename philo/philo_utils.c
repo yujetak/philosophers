@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:32:48 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 09:37:36 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 10:04:22 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,4 @@ void	ft_usleep(int status_end_time)
 	target_time = status_end_time + get_time();
 	while (target_time > get_time())
 		usleep(100);
-}
-
-int	is_all_eat(t_info *info)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx < info->nbr_philos)
-	{
-		if (info->philo[idx]->eat_cnt < info->nbr_eat_must)
-			return (FALSE);
-		idx += 1;
-	}
-	return (TRUE);
 }

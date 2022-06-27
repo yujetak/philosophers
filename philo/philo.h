@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:56:03 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 09:59:11 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 10:05:16 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,23 @@ void	print_error(const char *msg);
 int		check_arg(int argc, char *argv[]);
 /* check_arg_utils.c */
 int		ft_atoi(const char *str);
+size_t	ft_strlen(const char *str);
 /* run_philo.c */
 int		run_philo(t_info *in);
 void	*routine(void *philo);
 int		ft_pthread_join(t_info *in);
 int		is_philo_death(t_info *in);
 int		is_all_philo_eat(t_info *in);
+/* philo_utils.c */
+long	get_time(void);
+long	get_timestamp(t_info *info);
+void	philo_status_print(t_philo *ph);
+void	ft_usleep(int status_end_time);
+/* philo_utils2.c */
+void	philo_get_fork(t_philo *philo);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
 /* free.c */
 void	free_info(t_info *info);
 /* struct_info.c */

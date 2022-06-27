@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:14:35 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 09:20:27 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 10:07:39 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,4 @@ void	philo_think(t_philo *philo)
 	philo->status = THINK;
 	philo->status_start = get_timestamp(philo->info);
 	philo_status_print(philo);
-}
-
-int	is_philo_death(t_philo *philo)
-{
-	if (philo->info->time_die < (get_timestamp(philo->info) - philo->last_eat))
-	{
-		pthread_mutex_lock(&philo->info->m_death);
-		philo->info->is_death = TRUE;
-		pthread_mutex_unlock(&philo->info->m_death);
-		printf("%ld %d died\n", get_timestamp(philo->info), philo->idx + 1);
-		return (TRUE);
-	}
-	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:25:41 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 09:53:15 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 10:06:01 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	set_info(int argc, char *argv[], t_info *info)
 {
 	if (init_info(info))
 		return (1);
-	info->nbr_philos = ft_ato_pi(argv[1]);
-	info->time_die = ft_ato_pi(argv[2]);
-	info->time_eat = ft_ato_pi(argv[3]);
-	info->time_sleep = ft_ato_pi(argv[4]);
+	info->nbr_philos = ft_atoi(argv[1]);
+	info->time_die = ft_atoi(argv[2]);
+	info->time_eat = ft_atoi(argv[3]);
+	info->time_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		info->nbr_eat_must = ft_ato_pi(argv[5]);
+		info->nbr_eat_must = ft_atoi(argv[5]);
 	info->main_start_time = get_time();
 	if (set_philo(info))
 		return (1);
