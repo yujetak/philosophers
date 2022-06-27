@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:51:57 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/20 15:27:50 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 09:49:07 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-int	ft_ato_pi(const char *str)
+int	ft_atoi(const char *str)
 {
 	long long	i;
 	long long	pi;

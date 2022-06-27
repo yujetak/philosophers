@@ -6,7 +6,7 @@
 #    By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/26 21:41:23 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/27 09:54:45 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,11 @@ GREEN	=	\033[0;92m
 
 SRCS	=	philo.c \
 			philo_utils.c \
+			philo_utils2.c \
 			check_arg.c \
 			check_arg_utils.c \
 			struct_info.c \
-			struct_philosopher.c \
+			set_info.c \
 			run_philo.c \
 			free.c \
 

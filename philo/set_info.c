@@ -1,23 +1,33 @@
 /* ************************************************************************** */
-/*																			*/
-/*														:::	  ::::::::   */
-/*   struct_philosopher.c							   :+:	  :+:	:+:   */
-/*													+:+ +:+		 +:+	 */
-/*   By: yotak <yotak@student.42seoul.kr>		   +#+  +:+	   +#+		*/
-/*												+#+#+#+#+#+   +#+		   */
-/*   Created: 2022/06/20 13:24:44 by yotak			 #+#	#+#			 */
-/*   Updated: 2022/06/26 19:46:26 by yotak			###   ########.fr	   */
-/*																			*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_info.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/27 09:28:44 by yotak             #+#    #+#             */
+/*   Updated: 2022/06/27 09:55:37 by yotak            ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	set_thread(t_info *info)
+{
+	info->thread = (pthread_t *)malloc \
+					(sizeof(pthread_t) * info->nbr_philos + 1);
+	if (!(info->thread))
+		return (1);
+	return (0);
+}
+
 int	set_forks_mutex(t_info *info)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
-	info->m_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * info->nbr_philos);
+	info->m_forks = (pthread_mutex_t *)malloc \
+					(sizeof(pthread_mutex_t) * info->nbr_philos);
 	if (!(info->m_forks))
 		return (1);
 	while (idx < info->nbr_philos)
@@ -31,7 +41,7 @@ int	set_forks_mutex(t_info *info)
 
 int	set_forks_array(t_info *info)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	info->forks = (int *)malloc(sizeof(int) * info->nbr_philos);
@@ -47,7 +57,7 @@ int	set_forks_array(t_info *info)
 
 int	set_philo(t_info *info)
 {
-	int idx;
+	int	idx;
 
 	idx = 0;
 	info->philo = (t_philo **)malloc(sizeof(t_philo *) * info->nbr_philos);
@@ -71,13 +81,5 @@ int	set_philo(t_info *info)
 		info->philo[idx]->right_fork = idx;
 		idx += 1;
 	}
-	return (0);
-}
-
-int	set_thread(t_info *info)
-{
-	info->thread = (pthread_t *)malloc(sizeof(pthread_t) * info->nbr_philos + 1);
-	if (!(info->thread))
-		return (1);
 	return (0);
 }
