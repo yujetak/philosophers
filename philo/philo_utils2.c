@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:14:35 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 10:07:39 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 12:32:13 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void	philo_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->m_eat);
 	philo->eat_cnt += 1;
 	philo->status_start = get_timestamp(philo->info);
+	pthread_mutex_unlock(&philo->m_eat);
+	pthread_mutex_lock(&philo->m_last_eat);
 	philo->last_eat = get_timestamp(philo->info);
+	pthread_mutex_unlock(&philo->m_last_eat);
 	philo->status = EAT;
 	eat_time = philo->info->time_eat;
 	philo_status_print(philo);
-	pthread_mutex_unlock(&philo->m_eat);
 	ft_usleep(eat_time);
 	philo->status_start = 0;
 	philo->info->forks[philo->left_fork] = ON_TABLE;

@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   run_philo.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/27 09:04:45 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 09:50:43 by yotak            ###   ########.fr       */
-/*                                                                            */
+/*															 */
+/*											 :::	 ::::::::   */
+/*   run_philo.c								:+:	 :+:	:+:   */
+/*										  +:+ +:+		+:+	*/
+/*   By: yotak <yotak@student.42seoul.kr>		 +#+  +:+	  +#+	   */
+/*									   +#+#+#+#+#+   +#+		 */
+/*   Created: 2022/06/27 09:04:45 by yotak		   #+#	#+#		   */
+/*   Updated: 2022/06/27 12:30:01 by yotak		  ###   ########.fr	  */
+/*															 */
 /* ************************************************************************** */
 
 #include "philo.h"
@@ -23,8 +23,15 @@ void	*routine(void *philo)
 		return ((void *) 0);
 	if ((ph->idx % 2) == 0)
 		usleep(100);
-	while (ph->info->is_death == FALSE)
+	while (1)
 	{
+		pthread_mutex_lock(&ph->info->m_death);
+		if (ph->info->is_death == TRUE)
+		{
+			pthread_mutex_unlock(&ph->info->m_death);
+			break ;
+		}
+		pthread_mutex_unlock(&ph->info->m_death);
 		pthread_mutex_lock(&ph->info->m_forks[ph->right_fork]);
 		pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
 		philo_get_fork(ph);
@@ -71,37 +78,37 @@ int	run_philo(t_info *in)
 		idx += 1;
 	}
 	pthread_mutex_unlock(&in->m_start_line);
-	if (is_philo_death(in) || is_all_philo_eat(in))
-		return (1);
+	idx = 0;
+	while (idx < in->nbr_philos)
+	{
+
+	   if (is_philo_death(in->philo[idx]))
+			break ;
+	   if (in->nbr_philos > 1)
+	   {
+		  idx += 1;
+		  idx = idx % in->nbr_philos;
+	   }
+	}
 	if (ft_pthread_join(in))
 		return (1);
 	return (0);
 }
 
-int	is_philo_death(t_info *in)
+int is_philo_death(t_philo *ph)
 {
-	int	idx;
-
-	idx = 0;
-	while (idx < in->nbr_philos)
+	pthread_mutex_lock(&ph->m_last_eat);
+	if ((ph->info->time_die < (get_timestamp(ph->info) - ph->last_eat)))
 	{
-		usleep(100);
-		pthread_mutex_lock(&in->m_time);
-		if ((in->time_die < (get_timestamp(in) - in->philo[idx]->last_eat)))
-		{
-			pthread_mutex_lock(&in->m_print);
-			printf("%ld %d died\n", get_timestamp(in), in->philo[idx]->idx + 1);
-			pthread_mutex_unlock(&in->m_print);
-			return (1);
-		}
-		pthread_mutex_unlock(&in->m_time);
-		if (in->nbr_philos > 1)
-		{
-			idx += 1;
-			idx = idx % in->nbr_philos;
-		}
+		pthread_mutex_unlock(&ph->m_last_eat);
+		pthread_mutex_lock(&ph->info->m_death);
+		ph->info->is_death = TRUE;
+		pthread_mutex_unlock(&ph->info->m_death);
+		printf("%ld %d died\n", get_timestamp(ph->info), ph->idx + 1);
+		return (TRUE);
 	}
-	return (0);
+	pthread_mutex_unlock(&ph->m_last_eat);
+	return (FALSE);
 }
 
 int	is_all_philo_eat(t_info *in)

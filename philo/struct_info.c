@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:25:41 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 10:06:01 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 12:17:08 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	init_info(t_info *in)
 	memset((void *)in, 0, sizeof(t_info));
 	if (!in)
 		return (1);
-	in->nbr_eat_must = -1;
+	in->nbr_eat_must = INT32_MAX;
 	return (0);
 }
 

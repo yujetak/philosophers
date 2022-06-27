@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:56:03 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 10:05:16 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 12:19:06 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ struct s_philo
 	long			status_start;
 	long			last_eat;
 	pthread_mutex_t	m_eat;
+	pthread_mutex_t	m_last_eat;
 	t_info			*info;
 };
 
@@ -92,7 +93,7 @@ size_t	ft_strlen(const char *str);
 int		run_philo(t_info *in);
 void	*routine(void *philo);
 int		ft_pthread_join(t_info *in);
-int		is_philo_death(t_info *in);
+int		is_philo_death(t_philo *ph);
 int		is_all_philo_eat(t_info *in);
 /* philo_utils.c */
 long	get_time(void);

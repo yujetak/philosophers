@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:32:48 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 10:04:22 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 12:49:15 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ long	get_timestamp(t_info *info)
 
 void	philo_status_print(t_philo *ph)
 {
-	if (ph->info->is_death == FALSE)
+	int	status;
+
+	pthread_mutex_lock(&ph->info->m_death);
+	status = ph->info->is_death;
+	pthread_mutex_unlock(&ph->info->m_death);
+	if (status == FALSE)
 	{
 		pthread_mutex_lock(&ph->info->m_print);
 		if (ph->status == TAKE_FORK)
