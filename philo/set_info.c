@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:28:44 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 12:19:31 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 18:48:20 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,25 @@ int	set_forks_array(t_info *info)
 	return (0);
 }
 
+int	set_philo_value(t_info *info, int idx)
+{
+	info->philo[idx]->idx = idx;
+	info->philo[idx]->status = THINK;
+	info->philo[idx]->eat_cnt = 0;
+	info->philo[idx]->status_start = 0;
+	info->philo[idx]->last_eat = get_timestamp(info);
+	info->philo[idx]->info = info;
+	if (pthread_mutex_init(&info->philo[idx]->m_eat, NULL) || \
+		pthread_mutex_init(&info->philo[idx]->m_last_eat, NULL))
+		return (1);
+	if (idx == info->nbr_philos - 1)
+		info->philo[idx]->left_fork = 0;
+	else
+		info->philo[idx]->left_fork = idx + 1;
+	info->philo[idx]->right_fork = idx;
+	return (0);
+}
+
 int	set_philo(t_info *info)
 {
 	int	idx;
@@ -66,21 +85,9 @@ int	set_philo(t_info *info)
 	while (idx < info->nbr_philos)
 	{
 		info->philo[idx] = (t_philo *)malloc(sizeof(t_philo));
-		info->philo[idx]->idx = idx;
-		info->philo[idx]->status = THINK;
-		info->philo[idx]->eat_cnt = 0;
-		info->philo[idx]->status_start = 0;
-		info->philo[idx]->last_eat = get_timestamp(info);
-		info->philo[idx]->info = info;
-		if (pthread_mutex_init(&info->philo[idx]->m_eat, NULL))
+		if (!info->philo[idx])
 			return (1);
-		if (pthread_mutex_init(&info->philo[idx]->m_last_eat, NULL))
-			return (1);
-		if (idx == info->nbr_philos - 1)
-			info->philo[idx]->left_fork = 0;
-		else
-			info->philo[idx]->left_fork = idx + 1;
-		info->philo[idx]->right_fork = idx;
+		set_philo_value(info, idx);
 		idx += 1;
 	}
 	return (0);

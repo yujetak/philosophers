@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:56:03 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 16:19:09 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 18:34:45 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	*routine(void *philo);
 int		ft_pthread_join(t_info *in);
 int		is_philo_death(t_philo *ph);
 int		is_all_philo_eat(t_info *in);
+/* run_philo_utils.c */
+int		check_philo_terminate(t_info *in);
 /* philo_utils.c */
 long	get_time(void);
 long	get_timestamp(t_info *info);
@@ -105,6 +107,7 @@ void	philo_get_fork(t_philo *philo);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
+int		check_philo_terminate(t_info *in);
 /* free.c */
 void	free_info(t_info *info);
 /* struct_info.c */

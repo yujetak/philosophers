@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 18:01:59 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 18:10:35 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 18:35:20 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,15 @@ void	*routine(void *philo)
 		usleep(100);
 	while (1)
 	{
-		// pthread_mutex_lock(&ph->info->m_death);
+		pthread_mutex_lock(&ph->info->m_death);
 		if (ph->info->is_death == TRUE || ph->info->nbr_eat_must <= ph->eat_cnt)
 		{
-			// pthread_mutex_unlock(&ph->info->m_death);
+			pthread_mutex_unlock(&ph->info->m_death);
 			break ;
 		}
-		// pthread_mutex_unlock(&ph->info->m_death);
-		pthread_mutex_lock(&ph->info->m_forks[ph->right_fork]);
-		pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
+		pthread_mutex_unlock(&ph->info->m_death);
 		philo_get_fork(ph);
 		philo_eat(ph);
-		pthread_mutex_unlock(&ph->info->m_forks[ph->left_fork]);
-		pthread_mutex_unlock(&ph->info->m_forks[ph->right_fork]);
 		philo_sleep(ph);
 		philo_think(ph);
 		usleep(100);
@@ -78,23 +74,14 @@ int	run_philo(t_info *in)
 		idx += 1;
 	}
 	pthread_mutex_unlock(&in->m_start_line);
-	idx = 0;
-	while (idx < in->nbr_philos)
-	{
-		if (is_philo_death(in->philo[idx]) || is_all_philo_eat(in))
-			break ;
-		if (in->nbr_philos > 1)
-		{
-		  idx += 1;
-		  idx = idx % in->nbr_philos;
-		}
-	}
+	if (check_philo_terminate(in))
+		return (1);
 	if (ft_pthread_join(in))
 		return (1);
 	return (0);
 }
 
-int is_philo_death(t_philo *ph)
+int	is_philo_death(t_philo *ph)
 {
 	pthread_mutex_lock(&ph->m_last_eat);
 	if ((ph->info->time_die < (get_timestamp(ph->info) - ph->last_eat)))
