@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*															 */
-/*											 :::	 ::::::::   */
-/*   run_philo.c								:+:	 :+:	:+:   */
-/*										  +:+ +:+		+:+	*/
-/*   By: yotak <yotak@student.42seoul.kr>		 +#+  +:+	  +#+	   */
-/*									   +#+#+#+#+#+   +#+		 */
-/*   Created: 2022/06/27 09:04:45 by yotak		   #+#	#+#		   */
-/*   Updated: 2022/06/27 12:30:01 by yotak		  ###   ########.fr	  */
-/*															 */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   run_philo.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/27 18:01:59 by yotak             #+#    #+#             */
+/*   Updated: 2022/06/27 18:10:35 by yotak            ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
@@ -25,13 +25,13 @@ void	*routine(void *philo)
 		usleep(100);
 	while (1)
 	{
-		pthread_mutex_lock(&ph->info->m_death);
+		// pthread_mutex_lock(&ph->info->m_death);
 		if (ph->info->is_death == TRUE || ph->info->nbr_eat_must <= ph->eat_cnt)
 		{
-			pthread_mutex_unlock(&ph->info->m_death);
+			// pthread_mutex_unlock(&ph->info->m_death);
 			break ;
 		}
-		pthread_mutex_unlock(&ph->info->m_death);
+		// pthread_mutex_unlock(&ph->info->m_death);
 		pthread_mutex_lock(&ph->info->m_forks[ph->right_fork]);
 		pthread_mutex_lock(&ph->info->m_forks[ph->left_fork]);
 		philo_get_fork(ph);
@@ -81,13 +81,13 @@ int	run_philo(t_info *in)
 	idx = 0;
 	while (idx < in->nbr_philos)
 	{
-	   if (is_philo_death(in->philo[idx]) || is_all_philo_eat(in))
+		if (is_philo_death(in->philo[idx]) || is_all_philo_eat(in))
 			break ;
-	   if (in->nbr_philos > 1)
-	   {
+		if (in->nbr_philos > 1)
+		{
 		  idx += 1;
 		  idx = idx % in->nbr_philos;
-	   }
+		}
 	}
 	if (ft_pthread_join(in))
 		return (1);
