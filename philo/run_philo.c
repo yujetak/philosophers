@@ -26,7 +26,7 @@ void	*routine(void *philo)
 	while (1)
 	{
 		pthread_mutex_lock(&ph->info->m_death);
-		if (ph->info->is_death == TRUE)
+		if (ph->info->is_death == TRUE || ph->info->nbr_eat_must <= ph->eat_cnt)
 		{
 			pthread_mutex_unlock(&ph->info->m_death);
 			break ;
@@ -81,8 +81,7 @@ int	run_philo(t_info *in)
 	idx = 0;
 	while (idx < in->nbr_philos)
 	{
-
-	   if (is_philo_death(in->philo[idx]))
+	   if (is_philo_death(in->philo[idx]) || is_all_philo_eat(in))
 			break ;
 	   if (in->nbr_philos > 1)
 	   {
@@ -118,10 +117,14 @@ int	is_all_philo_eat(t_info *in)
 	idx = 0;
 	while (idx < in->nbr_philos)
 	{
+		pthread_mutex_lock(&in->philo[idx]->m_eat);
 		if (in->philo[idx]->eat_cnt < in->nbr_eat_must)
+		{
+			pthread_mutex_unlock(&in->philo[idx]->m_eat);
 			return (FALSE);
+		}
+		pthread_mutex_unlock(&in->philo[idx]->m_eat);
 		idx += 1;
 	}
-	printf("all philo eat enough\n");
 	return (TRUE);
 }

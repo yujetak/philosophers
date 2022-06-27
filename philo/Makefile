@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/27 09:54:45 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/27 15:54:19 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,8 @@ $(DIR_OBJ)/%.o : %.c
 # cc -Wall -Wextra -Werror -o 실행파일명 목적파일들
 $(NAME)	:	$(OBJS)
 			@$(CC) $(CFLAGS) -o $@ $^
-			@echo "$(BLUE)🪄 CFLAGS = $(CFLAGS)$(WHITE)"
-			@echo "$(GREEN)💡 executable $(NAME) created$(WHITE)"
+			@echo "$(BLUE)CFLAGS = $(CFLAGS)$(WHITE)"
+			@echo "$(GREEN)executable $(NAME) created$(WHITE)"
 
 clean	:
 			@$(RM) $(DIR_OBJ)
@@ -57,7 +57,7 @@ clean	:
 fclean	:
 			@$(MAKE) clean
 			@$(RM) $(NAME)
-			@echo "$(RED)🪚 deleted $(NAME)$(WHITE)"
+			@echo "$(RED)deleted $(NAME)$(WHITE)"
 
 re		:
 			@$(MAKE) fclean
