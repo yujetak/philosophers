@@ -6,11 +6,21 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:14:35 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 19:33:01 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 20:07:58 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*no_country_for_alone_philo(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->info->m_forks[philo->right_fork]);
+	philo->status = TAKE_FORK;
+	philo_status_print(philo);
+	philo->info->forks[philo->right_fork] = IN_HAND;
+	pthread_mutex_unlock(&philo->info->m_forks[philo->right_fork]);
+	return ((void *)0);
+}
 
 void	philo_get_fork(t_philo *philo)
 {
@@ -56,22 +66,4 @@ void	philo_think(t_philo *philo)
 {
 	philo->status = THINK;
 	philo_status_print(philo);
-}
-
-int	check_philo_terminate(t_info *in)
-{
-	int	idx;
-
-	idx = 0;
-	while (idx < in->nbr_philos)
-	{
-		if (is_philo_death(in->philo[idx]) || is_all_philo_eat(in))
-			return (1);
-		if (in->nbr_philos > 1)
-		{
-			idx += 1;
-			idx = idx % in->nbr_philos;
-		}
-	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 18:01:59 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 19:26:35 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 20:08:19 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*routine(void *philo)
 	pthread_mutex_lock(&ph->info->m_start_line);
 	pthread_mutex_unlock(&ph->info->m_start_line);
 	if (ph->info->nbr_philos == 1)
-		return ((void *) 0);
+		return (no_country_for_alone_philo(ph));
 	if ((ph->idx % 2) == 0)
 		usleep(80);
 	while (1)

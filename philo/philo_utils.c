@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:32:48 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 19:41:53 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 20:09:02 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,22 @@ void	ft_usleep(int status_end_time)
 	target_time = status_end_time + get_time();
 	while (target_time > get_time())
 		usleep(100);
+}
+
+int	check_philo_terminate(t_info *in)
+{
+	int	idx;
+
+	idx = 0;
+	while (idx < in->nbr_philos)
+	{
+		if (is_philo_death(in->philo[idx]) || is_all_philo_eat(in))
+			return (1);
+		if (in->nbr_philos > 1)
+		{
+			idx += 1;
+			idx = idx % in->nbr_philos;
+		}
+	}
+	return (0);
 }
