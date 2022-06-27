@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_arg_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 08:51:57 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 09:49:07 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:43:06 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	ft_atoi(const char *str)
 
 	i = 0;
 	pi = 0;
-	if (!str)
-		return (0);
 	while (str[i] && ((str[i] >= 9 && str[i] <= 13) || str[i] == 32))
 		i += 1;
+	if (str[i] == '\0')
+		return (-1);
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')

@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:28:44 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 18:48:20 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:33:07 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	set_philo_value(t_info *info, int idx)
 	info->philo[idx]->idx = idx;
 	info->philo[idx]->status = THINK;
 	info->philo[idx]->eat_cnt = 0;
-	info->philo[idx]->status_start = 0;
 	info->philo[idx]->last_eat = get_timestamp(info);
 	info->philo[idx]->info = info;
 	if (pthread_mutex_init(&info->philo[idx]->m_eat, NULL) || \

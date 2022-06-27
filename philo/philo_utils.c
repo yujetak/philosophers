@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 15:32:48 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 12:49:15 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:41:53 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,26 @@ long	get_timestamp(t_info *info)
 
 void	philo_status_print(t_philo *ph)
 {
-	int	status;
+	int	is_dead;
 
 	pthread_mutex_lock(&ph->info->m_death);
-	status = ph->info->is_death;
+	is_dead = ph->info->is_death;
 	pthread_mutex_unlock(&ph->info->m_death);
-	if (status == FALSE)
+	if (is_dead == FALSE)
 	{
 		pthread_mutex_lock(&ph->info->m_print);
 		if (ph->status == TAKE_FORK)
-			printf("%ld %d has taken a fork\n", ph->status_start, ph->idx + 1);
+			printf("%ld %d has taken a fork\n" \
+					, get_timestamp(ph->info), ph->idx + 1);
 		else if (ph->status == EAT)
-			printf("%ld %d is eating\n", ph->status_start, ph->idx + 1);
+			printf("%ld %d is eating\n" \
+					, get_timestamp(ph->info), ph->idx + 1);
 		else if (ph->status == SLEEP)
-			printf("%ld %d is sleeping\n", ph->status_start, ph->idx + 1);
+			printf("%ld %d is sleeping\n" \
+					, get_timestamp(ph->info), ph->idx + 1);
 		else if (ph->status == THINK)
-			printf("%ld %d is thinking\n", ph->status_start, ph->idx + 1);
+			printf("%ld %d is thinking\n" \
+					, get_timestamp(ph->info), ph->idx + 1);
 		pthread_mutex_unlock(&ph->info->m_print);
 	}
 }

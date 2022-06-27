@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 18:01:59 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 18:35:20 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:26:35 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*routine(void *philo)
 	if (ph->info->nbr_philos == 1)
 		return ((void *) 0);
 	if ((ph->idx % 2) == 0)
-		usleep(100);
+		usleep(80);
 	while (1)
 	{
 		pthread_mutex_lock(&ph->info->m_death);
@@ -74,8 +74,7 @@ int	run_philo(t_info *in)
 		idx += 1;
 	}
 	pthread_mutex_unlock(&in->m_start_line);
-	if (check_philo_terminate(in))
-		return (1);
+	check_philo_terminate(in);
 	if (ft_pthread_join(in))
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:56:03 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 18:34:45 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:33:13 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ struct s_philo
 	int				right_fork;
 	int				status;
 	int				eat_cnt;
-	long			status_start;
 	long			last_eat;
 	pthread_mutex_t	m_eat;
 	pthread_mutex_t	m_last_eat;

@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:14:35 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 18:35:14 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:33:01 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	philo_eat(t_philo *philo)
 
 	pthread_mutex_lock(&philo->m_eat);
 	philo->eat_cnt += 1;
-	philo->status_start = get_timestamp(philo->info);
 	pthread_mutex_unlock(&philo->m_eat);
 	pthread_mutex_lock(&philo->m_last_eat);
 	philo->last_eat = get_timestamp(philo->info);
@@ -37,7 +36,6 @@ void	philo_eat(t_philo *philo)
 	eat_time = philo->info->time_eat;
 	philo_status_print(philo);
 	ft_usleep(eat_time);
-	philo->status_start = 0;
 	philo->info->forks[philo->left_fork] = ON_TABLE;
 	philo->info->forks[philo->right_fork] = ON_TABLE;
 	pthread_mutex_unlock(&philo->info->m_forks[philo->left_fork]);
@@ -50,16 +48,13 @@ void	philo_sleep(t_philo *philo)
 
 	philo->status = SLEEP;
 	sleep_time = philo->info->time_sleep;
-	philo->status_start = get_timestamp(philo->info);
 	philo_status_print(philo);
-	philo->status_start = 0;
 	ft_usleep(sleep_time);
 }
 
 void	philo_think(t_philo *philo)
 {
 	philo->status = THINK;
-	philo->status_start = get_timestamp(philo->info);
 	philo_status_print(philo);
 }
 
