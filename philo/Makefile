@@ -6,7 +6,7 @@
 #    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/27 18:34:14 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/28 08:21:59 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRCS	=	philo.c \
 			struct_info.c \
 			set_info.c \
 			run_philo.c \
-			free.c \
 
 DIR_OBJ	=	./obj
 OBJS	=	$(SRCS:%.c=$(DIR_OBJ)/%.o)

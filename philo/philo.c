@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:17:57 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 18:28:04 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/28 08:21:53 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (run_philo(info))
 		return (1);
-	free_info(info);
 	return (0);
 }
 
