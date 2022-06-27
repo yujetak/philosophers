@@ -6,7 +6,7 @@
 /*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:56:03 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/27 19:33:13 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/27 19:54:33 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 //malloc free
 # include <unistd.h>
-//fork usleep -> 어느정도 적당히(적게는 안됨) while문 내에서라면? 100이상은 줘야!
+//usleep
 # include <string.h>
 //memset
 # include <pthread.h>
