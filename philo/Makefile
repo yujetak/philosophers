@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yotak <yotak@student.42.fr>                +#+  +:+       +#+         #
+#    By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/17 09:45:42 by yotak             #+#    #+#              #
-#    Updated: 2022/06/28 08:21:59 by yotak            ###   ########.fr        #
+#    Updated: 2022/06/28 14:01:11 by yotak            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS	=	philo.c \
 			struct_info.c \
 			set_info.c \
 			run_philo.c \
+			free.c
 
 DIR_OBJ	=	./obj
 OBJS	=	$(SRCS:%.c=$(DIR_OBJ)/%.o)
@@ -44,7 +45,6 @@ make_objd :
 $(DIR_OBJ)/%.o : %.c
 			@$(CC) $(CFLAGS) -c $< -o $@
 
-# cc -Wall -Wextra -Werror -o 실행파일명 목적파일들
 $(NAME)	:	$(OBJS)
 			@$(CC) $(CFLAGS) -o $@ $^
 			@echo "$(BLUE)CFLAGS = $(CFLAGS)$(WHITE)"

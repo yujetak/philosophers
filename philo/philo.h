@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yotak <yotak@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yotak <yotak@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 09:56:03 by yotak             #+#    #+#             */
-/*   Updated: 2022/06/28 08:21:48 by yotak            ###   ########.fr       */
+/*   Updated: 2022/06/28 13:57:18 by yotak            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ int		set_philo(t_info *info);
 int		set_forks_array(t_info *info);
 int		set_forks_mutex(t_info *info);
 int		set_thread(t_info *info);
-
+/*	free.c	*/
+int		free_info(t_info *info);
 #endif
